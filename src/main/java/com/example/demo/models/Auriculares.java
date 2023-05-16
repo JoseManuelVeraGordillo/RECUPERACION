@@ -22,7 +22,7 @@ public class Auriculares {
 	private String nombreAuriculare;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "MI_CONEXION", joinColumns = @JoinColumn(name = "MIS_auriculares_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "MIS_smartphone_id", referencedColumnName = "modelo"))
+//	@JoinTable(name = "MI_CONEXION", joinColumns = @JoinColumn(name = "MIS_auriculares_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "MIS_smartphone_id", referencedColumnName = "modelo"))
 
 	private Set<Smartphone> smartphone = new HashSet<>();
 

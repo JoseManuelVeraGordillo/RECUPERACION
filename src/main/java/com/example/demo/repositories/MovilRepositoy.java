@@ -10,6 +10,7 @@ import com.example.demo.models.MovilModel;
 @Repository
 public interface MovilRepositoy extends CrudRepository<MovilModel, Long> {
 
+	
 	public List<MovilModel> findAll();
 
 	public List<MovilModel> findAllByPrecioBetween(float precioMin, float precioMax);

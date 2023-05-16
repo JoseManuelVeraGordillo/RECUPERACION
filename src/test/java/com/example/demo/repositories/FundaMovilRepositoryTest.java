@@ -2,8 +2,8 @@ package com.example.demo.repositories;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,27 +13,44 @@ import com.example.demo.ObjectMother.FundaObjectMother;
 import com.example.demo.ObjectMother.MovilModelObjectMother;
 import com.example.demo.models.Funda;
 import com.example.demo.models.MovilModel;
+import com.example.demo.models.Smartphone;
+
+import jakarta.transaction.Transactional;
 
 @SpringBootTest
 class FundaMovilRepositoryTest {
 	@Autowired
-	MovilRepositoy movilRepositoy;
-	@Autowired
 	FundaRepository fundaRepository;
+	@Autowired
+	SmartphoneRepository smartphoneRepository;
 
+	@Transactional
 	@Test
 	void test() {
-		
-		List<MovilModel> movilModels=new MovilModelObjectMother().getMoviles();
+
+		LinkedList<Smartphone> smartphones = new LinkedList<>(); // creamos nuestros smarphones
+		smartphones.add(new Smartphone());
+		smartphones.add(new Smartphone());
+		smartphones.add(new Smartphone());
+		smartphones.add(new Smartphone());
+		smartphones.add(new Smartphone());
+
+		for (Smartphone smartphone : smartphones) {// persitimos nuestros smarphones
+			smartphoneRepository.save(smartphone);
+		}
+
 		List<Funda> fundas = new FundaObjectMother().getFundas();
 		for (Funda funda : fundas) {
-			MovilModel save = movilRepositoy.save(new MovilModel());//persistencia del movil
-			funda.setMovilModel(save);
-			Funda fundaSave = fundaRepository.save(funda);//persistencia de la funda
-
+			fundaRepository.save(funda);
 		}
-		Optional<MovilModel> findById = movilRepositoy.findById(1l);//busco un movil
+		Funda fundaZero = fundas.get(0);
+		fundaZero.add(smartphones.get(0));
+		fundaZero.add(smartphones.get(1));
+		fundaRepository.save(fundaZero);
+		Funda fundaUno = fundaRepository.findById(1L).get();
+		fundaUno.setModeloFunda("DE PATATAS FRITAS");
+		fundaRepository.save(fundaUno);
 		System.out.println();
-	}
 
+	}
 }

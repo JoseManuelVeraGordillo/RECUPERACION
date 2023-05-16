@@ -13,18 +13,21 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 
+//@Inheritance(strategy = InheritanceType.JOINED) 
+// para varias tablas singel_table para solo una seria necesario
+//ponerla en las hijas no el el padre?
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED) // para varias tablas singel_table para solo una
+@Inheritance(strategy = InheritanceType.JOINED) // para varias tablas SINGLE_TABLE para solo una
+public abstract class MovilModel {
 
-public class MovilModel {
+//public class MovilModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long modelo;
+	private Long id;
+	private String modelo;
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_marca")
 	private MarcaModel marca;
@@ -52,14 +55,16 @@ public class MovilModel {
 		super();
 	}
 
-	public MovilModel(Long modelo, MarcaModel marca, ProcesadorModel procesador, PantallaModel pantalla,
-			int almacenamiento, int ram, int alto, int ancho, int grosor, int peso, int camara, int bateria,
-			boolean nfc, float precio, LocalDate fecha_lanzamiento) {
+	public MovilModel(Long id, String modelo, MarcaModel marca, ProcesadorModel procesador, PantallaModel pantalla,
+			List<Funda> fundas, int almacenamiento, int ram, int alto, int ancho, int grosor, int peso, int camara,
+			int bateria, boolean nfc, float precio, LocalDate fecha_lanzamiento) {
 		super();
+		this.id = id;
 		this.modelo = modelo;
 		this.marca = marca;
 		this.procesador = procesador;
 		this.pantalla = pantalla;
+		this.fundas = fundas;
 		this.almacenamiento = almacenamiento;
 		this.ram = ram;
 		this.alto = alto;
@@ -73,16 +78,37 @@ public class MovilModel {
 		this.fecha_lanzamiento = fecha_lanzamiento;
 	}
 
+//	public MovilModel(String modelo, MarcaModel marca, ProcesadorModel procesador, PantallaModel pantalla,
+//			int almacenamiento, int ram, int alto, int ancho, int grosor, int peso, int camara, int bateria,
+//			boolean nfc, float precio, LocalDate fecha_lanzamiento) {
+//		super();
+//		this.modelo = modelo;
+//		this.marca = marca;
+//		this.procesador = procesador;
+//		this.pantalla = pantalla;
+//		this.almacenamiento = almacenamiento;
+//		this.ram = ram;
+//		this.alto = alto;
+//		this.ancho = ancho;
+//		this.grosor = grosor;
+//		this.peso = peso;
+//		this.camara = camara;
+//		this.bateria = bateria;
+//		this.nfc = nfc;
+//		this.precio = precio;
+//		this.fecha_lanzamiento = fecha_lanzamiento;
+//	}
+
 	public MovilModelDTO movilDTO() {
 		return new MovilModelDTO(String.valueOf(modelo), marca.getNombre(), procesador.getNucleos(), ram,
 				almacenamiento, precio);
 	}
 
-	public Long getModelo() {
+	public String getModelo() {
 		return modelo;
 	}
 
-	public void setModelo(Long modelo) {
+	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
 
@@ -110,7 +136,7 @@ public class MovilModel {
 		this.pantalla = pantalla;
 	}
 
-	public int getAlmacenamiento(long i) {
+	public int getAlmacenamiento(long id) {
 		return almacenamiento;
 	}
 

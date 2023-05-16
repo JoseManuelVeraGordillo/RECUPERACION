@@ -1,6 +1,7 @@
 package com.example.demo.models;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -19,12 +20,20 @@ public class Smartphone extends MovilModel {
 		super();
 	}
 
-	public Smartphone(Long modelo, MarcaModel marca, ProcesadorModel procesador, PantallaModel pantalla,
-			int almacenamiento, int ram, int alto, int ancho, int grosor, int peso, int camara, int bateria,
-			boolean nfc, float precio, LocalDate fecha_lanzamiento) {
-		super(modelo, marca, procesador, pantalla, almacenamiento, ram, alto, ancho, grosor, peso, camara, bateria, nfc,
-				precio, fecha_lanzamiento);
-		this.sistemaOperativo = sistemaOperativo;
+//	public Smartphone(String modelo, MarcaModel marca, ProcesadorModel procesador, PantallaModel pantalla,
+//			int almacenamiento, int ram, int alto, int ancho, int grosor, int peso, int camara, int bateria,
+//			boolean nfc, float precio, LocalDate fecha_lanzamiento) {
+//		super(modelo, marca, procesador, pantalla, almacenamiento, ram, alto, ancho, grosor, peso, camara, bateria, nfc,
+//				precio, fecha_lanzamiento);
+//		this.sistemaOperativo = sistemaOperativo;
+//	}
+
+	public Smartphone(Long id, String modelo, MarcaModel marca, ProcesadorModel procesador, PantallaModel pantalla,
+			List<Funda> fundas, int almacenamiento, int ram, int alto, int ancho, int grosor, int peso, int camara,
+			int bateria, boolean nfc, float precio, LocalDate fecha_lanzamiento) {
+		super(id, modelo, marca, procesador, pantalla, fundas, almacenamiento, ram, alto, ancho, grosor, peso, camara,
+				bateria, nfc, precio, fecha_lanzamiento);
+		// TODO Auto-generated constructor stub
 	}
 
 	public Smartphone(String modelo, MarcaModel marca, ProcesadorModel procesador, PantallaModel pantalla,

@@ -1,5 +1,9 @@
 package com.example.demo.models;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +22,6 @@ public class Funda {
 	@JoinColumn(name = "modelo_idZ")
 	private MovilModel movilModel;
 
-	
 	public Funda() {
 		super();
 	}
@@ -44,4 +47,15 @@ public class Funda {
 		this.movilModel = movilModel;
 	}
 
+	private Set<MovilModel> movilModels = new HashSet<>();
+
+	public Object[] toArray() {
+		return movilModels.toArray();
+	}
+
+	public boolean add(MovilModel e) {
+		return movilModels.add(e);
+	}
+
+	
 }

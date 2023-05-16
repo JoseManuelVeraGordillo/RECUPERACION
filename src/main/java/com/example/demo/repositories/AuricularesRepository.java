@@ -9,4 +9,6 @@ import com.example.demo.models.Auriculares;
 public interface AuricularesRepository extends CrudRepository<Auriculares, Long> {
 
 	public List<Auriculares> findAll();
+
+	public List<Auriculares> findByNombreAuriculare(String nombreAuriculare);
 }
